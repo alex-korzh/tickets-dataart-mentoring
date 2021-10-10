@@ -2,6 +2,7 @@ from flask import jsonify
 
 from main import app
 
+LOCALITIES1 = ""
 
 LOCALITIES = [
     {
