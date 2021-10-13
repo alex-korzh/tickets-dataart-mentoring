@@ -1,29 +1,34 @@
 from flask import jsonify
-
 from main import app
-
-#
-# LOCALITIES = [
-#     {
-#         "id": 1,
-#         "name": "Kyiv",
-#         "population": 3000000,
-#         "latitude": 50.271678,
-#         "longitude": 30.312568
-#     },
-#     {
-#         "id": 2,
-#         "name": "Moscow",
-#         "population": 12000000,
-#         "latitude": 55.8661894,
-#         "longitude": 37.8326612,
-#     }
-# ]
-#
 from models import Locality
+from models import Ticket
+from datetime import datetime
+
+
+@app.route('/')
+@app.route('/home')
+def home():
+    title = "Главная страница"
+    source = """<html><body>
+            <h1>{{h1}}</h1>
+            <h3><a href="{{url_for('hello')}}">Страница с приветом...</a></h3>
+            </body></html>"""
+    return jsonify(source, h1=title)
+    # return jsonify(
+    #     'index.html',
+    #     title='Home Page',
+    #     year=datetime.now().year,
+    # )
 
 
 @app.route("/locality")
 def get_locality():
     localities = Locality.query.all()
     return jsonify([l.to_dict() for l in localities])
+
+
+@app.route("/Tickets")
+def get_Tickets():
+    Tickets = Ticket.query.all()
+    return jsonify([l.to_dict() for l in Tickets])
+
