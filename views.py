@@ -5,17 +5,18 @@ from models import Ticket
 
 
 @app.route('/')
+@app.route('/home/')
 def home():
     return jsonify()
 
 
-@app.route('/locality')
+@app.route('/locality/')
 def get_locality():
     localities = Locality.query.all()
     return jsonify([l.to_dict() for l in localities])
 
 
-@app.route('/Tickets')
+@app.route('/Tickets/')
 def get_Tickets():
     tickets = Ticket.query.all()
     return jsonify([l.to_dict() for l in tickets])
