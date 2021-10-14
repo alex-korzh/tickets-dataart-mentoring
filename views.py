@@ -1,53 +1,31 @@
-from flask import jsonify
+from flask import jsonify, abort
 from main import app
 from models import Locality
 from models import Ticket
-from flask.views import View
 
 
+@app.route('/')
 def home():
-    return jsonify('index.html', context='Это главная страница')
+    return jsonify()
 
 
-app.add_url_rule('/', view_func=home)
-app.add_url_rule('/home', view_func=home)
-
-
-class Showlocalitys(View):
-
-    def dispatch_request(self):
-        localitys = Locality.query.all()
-        return jsonify([l.to_dict() for l in localities])
-        #return jsonify('users.html', objects=localitys)
-
-
-app.add_url_rule('/locality/', view_func=Showlocalitys.as_view('show_localitys'))
-
-@app.route("/locality")
+@app.route('/locality')
 def get_locality():
     localities = Locality.query.all()
     return jsonify([l.to_dict() for l in localities])
 
 
-@app.route("/Tickets")
+@app.route('/Tickets')
 def get_Tickets():
-    Tickets = Ticket.query.all()
-    return jsonify([l.to_dict() for l in Tickets])
+    tickets = Ticket.query.all()
+    return jsonify([l.to_dict() for l in tickets])
 
 
-# @app.route('/')
-# @app.route('/home')
-#def home():
-# title = "Главная страница"
-    #source = """<html><body>
-    #        <h1>{{h1}}</h1>
-    #        <h3><a href="{{url_for('hello')}}">Страница с приветом...</a></h3>
-    #        </body></html>"""
-    # return jsonify(source, h1=title)
-    # return jsonify(
-    #     'index.html',
-    #     title='Home Page',
-    #     year=datetime.now().year,
-    # )
+@app.route('/locality/<int:locality_id>', methods=['GET'])
+def get_locality_id(locality_id):
+    rez_locality = filter(lambda t: t['id'] == locality_id, Locality)
+    if len(rez_locality) == 0:
+        abort(404)
+    return jsonify({'locality': rez_locality[0]})
 
 
