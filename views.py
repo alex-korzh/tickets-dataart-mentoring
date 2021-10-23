@@ -1,4 +1,4 @@
-from flask import request, jsonify, abort, make_response
+from flask import jsonify, make_response
 from main import app
 from models import Locality, Ticket, Station
 
@@ -9,45 +9,39 @@ def home():
     return jsonify()
 
 
-@app.route('/locality/')
+@app.route('/localities/', methods=['GET'])
 def get_locality():
     localities = Locality.query.all()
     return jsonify([l.to_dict() for l in localities])
 
 
-@app.route('/tickets/')
+@app.route('/tickets/', methods=['GET'])
 def get_tickets():
     tickets = Ticket.query.all()
     return jsonify([l.to_dict() for l in tickets])
 
 
-@app.route('/stations/')
+@app.route('/stations/', methods=['GET'])
 def get_stations():
     station = Station.query.all()
     return jsonify([l.to_dict() for l in station])
 
 
-@app.route('/locality/<int:locality_id>', methods=['GET'])
+@app.route('/localities/<int:locality_id>', methods=['GET'])
 def get_locality_id(locality_id):
-
-    rez_locality = Locality.query.filter_by(id=locality_id,).first()
-
+    rez_locality = Locality.query.get(locality_id)
     return jsonify(rez_locality.to_dict())
 
 
-@app.route('/tickets/<int:tickets_id>', methods=['GET'])
-def get_tickets_id(tickets_id):
-
-    rez_tickets = Ticket.query.filter_by(id=tickets_id,).first()
-
+@app.route('/tickets/<int:ticket_id>', methods=['GET'])
+def get_tickets_id(ticket_id):
+    rez_tickets = Ticket.query.get(ticket_id)
     return jsonify(rez_tickets.to_dict())
 
 
-@app.route('/stations/<int:locality_id>', methods=['GET'])
-def get_stations_id(locality_id):
-
-    rez_stations = Station.query.filter_by(id_locality=locality_id,).all()
-
+@app.route('/stations/<int:station_id>', methods=['GET'])
+def get_stations_id(station_id):
+    rez_stations = Station.query.get(station_id)
     return jsonify([l.to_dict() for l in rez_stations])
 
 
@@ -55,18 +49,4 @@ def get_stations_id(locality_id):
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
-
-
-
-@app.route('/tickets', methods=['POST'])
-def create_task():
-    if not request.json or not 'title' in request.json:
-        abort(400)
-    ticket = {
-        'id': tickets[-1]['id'] + 1,
-        'title': tickets.json['title'],
-        'description': tickets.json.get('description', ""),
-        'done': False
-    }
-    ticket.append(task)
-    return jsonify({'ticket': ticket}), 201
+# TODO сделать эндпоинт для вывода станций конкретного города
