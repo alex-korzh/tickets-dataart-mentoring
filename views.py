@@ -33,6 +33,12 @@ def get_locality_id(locality_id):
     return jsonify(rez_locality.to_dict())
 
 
+@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
+def get_stations_locality_id(locality_id):
+    rez_stations = Station.query.filter_by(id_locality=locality_id).first()
+    return jsonify([l.to_dict() for l in rez_stations])
+
+
 @app.route('/tickets/<int:ticket_id>', methods=['GET'])
 def get_tickets_id(ticket_id):
     rez_tickets = Ticket.query.get(ticket_id)
