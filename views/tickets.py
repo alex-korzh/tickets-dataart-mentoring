@@ -18,5 +18,5 @@ def get_tickets_id(ticket_id):
 
 @app.route('/tickets/<int:ticket_id>', methods=['PUT'])
 def update_ticket(ticket_id):
-    locality = Ticket.query.get(ticket_id)
-    return Ticket.update(request.json)
+    rez_ticket = Ticket.query.get(ticket_id)
+    return rez_ticket.update(request.json)

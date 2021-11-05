@@ -35,6 +35,10 @@ class Locality(db.Model):
         db.session.commit()
         return self
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,6 +63,11 @@ class Station(db.Model):
                 setattr(self, k, v)
         db.session.commit()
         return self
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -88,3 +97,6 @@ class Ticket(db.Model):
         db.session.commit()
         return self
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
