@@ -9,10 +9,3 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
-  app:
-    build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    restart: always
