@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 
 from main import app
 from models import Ticket
@@ -14,3 +14,9 @@ def get_tickets():
 def get_tickets_id(ticket_id):
     rez_tickets = Ticket.query.get(ticket_id)
     return jsonify(rez_tickets.to_dict())
+
+
+@app.route('/tickets/<int:ticket_id>', methods=['PUT'])
+def update_ticket(tickets_id):
+    locality = Ticket.query.get(tickets_id)
+    return Ticket.update(request.json)

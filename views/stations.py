@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 
 from main import app
 from models import Station
@@ -20,3 +20,9 @@ def get_stations_locality_id(locality_id):
 def get_stations_id(station_id):
     rez_stations = Station.query.get(station_id)
     return jsonify([l.to_dict() for l in rez_stations])
+
+
+@app.route('/stations/<int:stations_id>', methods=['PUT'])
+def update_station(stations_id):
+    locality = Station.query.get(stations_id)
+    return Station.update(request.json)

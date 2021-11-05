@@ -53,6 +53,12 @@ class Station(db.Model):
             "station_type": self.station_type,
         }
 
+    def update(self, data):
+        for k, v in data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+        db.session.commit()
+        return self
 
 class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,3 +80,11 @@ class Ticket(db.Model):
             "departure_time": self.departure_time,
             "arrival_time": self.arrival_time,
         }
+
+    def update(self, data):
+        for k, v in data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+        db.session.commit()
+        return self
+
