@@ -22,7 +22,7 @@ def get_stations_id(station_id):
     return jsonify([l.to_dict() for l in rez_stations])
 
 
-@app.route('/stations/<int:stations_id>', methods=['PUT'])
-def update_station(stations_id):
-    locality = Station.query.get(stations_id)
+@app.route('/stations/<int:station_id>', methods=['PUT'])
+def update_station(station_id):
+    locality = Station.query.get(station_id)
     return Station.update(request.json)
