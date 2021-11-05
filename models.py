@@ -28,6 +28,13 @@ class Locality(db.Model):
             "longitude": self.longitude,
         }
 
+    def update(self, data):
+        for k, v in data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+        db.session.commit()
+        return self
+
 
 class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
