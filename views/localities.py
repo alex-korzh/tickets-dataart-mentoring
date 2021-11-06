@@ -1,13 +1,7 @@
 from flask import jsonify, request
-from main import app, db
+from main import app
 from models import Locality
-
-
-class HttpStatus:
-    OK = 200
-    CREATED = 201
-    NOT_FOUND = 404
-    BAD_REQUEST = 400
+from .common import HttpStatus
 
 
 @app.route('/localities/', methods=['GET'])
@@ -28,12 +22,13 @@ def update_locality(locality_id):
     construct = {}
     if request.method == 'PUT':
         rez_locality.update(request.json)
+        construct['success'] = True
+        construct['message'] = 'Data saved'
         response = jsonify(construct)
         response.status_code = HttpStatus.OK
     elif request.method == 'DELETE':
         try:
             rez_locality.delete()
-            db.session.commit()
             construct['success'] = True
             construct['message'] = 'locality has been delete.'
             response = jsonify(construct)

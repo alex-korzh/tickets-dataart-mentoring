@@ -1,6 +1,12 @@
 from flask import jsonify, make_response
 from main import app
-from models import Locality, Ticket, Station
+
+
+class HttpStatus:
+    OK = 200
+    CREATED = 201
+    NOT_FOUND = 404
+    BAD_REQUEST = 400
 
 
 @app.route('/')
