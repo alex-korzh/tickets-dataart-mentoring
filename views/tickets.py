@@ -1,7 +1,7 @@
-from flask import jsonify, request
+from flask import jsonify, request, Response
 from main import app
 from models import Ticket
-from .common import HttpStatus
+from http import HTTPStatus
 
 
 @app.route('/tickets/', methods=['GET'])
@@ -16,28 +16,16 @@ def get_tickets_id(ticket_id):
     return jsonify(rez_tickets.to_dict())
 
 
-@app.route('/tickets/<int:ticket_id>', methods=['PUT', 'DELETE'])
+@app.route('/tickets/<int:ticket_id>', methods=['PUT'])
 def update_ticket(ticket_id):
-    rez_ticket = Ticket.query.get(ticket_id)
-    construct = {}
-    if request.method == 'PUT':
-        rez_ticket.update(request.json)
-        construct['success'] = True
-        construct['message'] = 'Data saved'
-        response = jsonify(construct)
-        response.status_code = HttpStatus.OK
-    elif request.method == 'DELETE':
-        try:
-            rez_ticket.delete()
-            construct['success'] = True
-            construct['message'] = 'Ticket has been delete.'
-            response = jsonify(construct)
-            response.status_code = HttpStatus.OK
-        except Exception as e:
-            construct['success'] = False
-            construct['error'] = str(e)
-            response = jsonify(construct)
-            response.status_code = HttpStatus.BAD_REQUEST
+    rez_tickets = Ticket.query.get(ticket_id)
+    rez_tickets.update(request.json)
+    return Response(status=HTTPStatus.OK)
 
-    return response
+
+@app.route('/tickets/<int:ticket_id>', methods=['DELETE'])
+def delete_ticket(ticket_id):
+    rez_tickets = Ticket.query.get(ticket_id)
+    rez_tickets.delete()
+    return Response(status=HTTPStatus.OK)
 

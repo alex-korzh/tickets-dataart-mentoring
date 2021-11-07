@@ -1,5 +1,4 @@
 from http import HTTPStatus
-
 from flask import jsonify, request, Response
 from main import app
 from models import Station
@@ -20,7 +19,7 @@ def get_stations_locality_id(locality_id):
 @app.route('/stations/<int:station_id>', methods=['GET'])
 def get_stations_id(station_id):
     rez_stations = Station.query.get(station_id)
-    return jsonify([l.to_dict() for l in rez_stations])
+    return jsonify([rez_stations.to_dict() for l in rez_stations])
 
 
 @app.route('/stations/<int:station_id>', methods=['PUT'])

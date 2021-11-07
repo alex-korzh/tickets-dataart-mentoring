@@ -2,13 +2,6 @@ from flask import jsonify, make_response
 from main import app
 
 
-class HttpStatus:
-    OK = 200
-    CREATED = 201
-    NOT_FOUND = 404
-    BAD_REQUEST = 400
-
-
 @app.route('/')
 @app.route('/home/')
 def home():

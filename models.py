@@ -8,6 +8,11 @@ class StationTypeEnum(enum.Enum):
     railway_station = "R"
 
 
+class AccountType(enum.Enum):
+    Administrator = "A"
+    User = "U"
+
+
 class ChangeableMixin:
 
     def update(self, data):
@@ -80,3 +85,25 @@ class Ticket(db.Model, ChangeableMixin):
             "departure_time": self.departure_time,
             "arrival_time": self.arrival_time,
         }
+
+
+class User(db.Model, ChangeableMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    surname = db.Column(db.String)
+    account_type = db.Column(db.Enum(AccountType))
+    password = db.Column(db.String)
+
+    def __repr__(self):
+        return f"User {self.name}"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "surname": self.surname,
+            "account_type": self.account_type,
+            "password": self.password,
+        }
+
+#Подумать над структурой таблици, что можно добавить
