@@ -1,0 +1,12 @@
+alembic @ file:///Users/alex/Library/Caches/pypoetry/artifacts/36/73/4b/1c8e8ac05902105a9f9e6cd2542958bbb439eba4f10065edbefd181256/alembic-1.7.4-py3-none-any.whl
+click @ file:///Users/alex/Library/Caches/pypoetry/artifacts/34/4d/5b/2e936191a48c61e37319c157af7e3c0dbdde9b80ccdd04b7940f99c5db/click-8.0.3-py3-none-any.whl
+Flask @ file:///Users/alex/Library/Caches/pypoetry/artifacts/2f/5b/45/31d4e0a4e8a90241c7b059a6ec47bccb402e5b551def414bb5c0865eef/Flask-2.0.2-py3-none-any.whl
+Flask-Migrate @ file:///Users/alex/Library/Caches/pypoetry/artifacts/be/5c/39/76d4af73accd76128d17f1c158471374f07f9dc30316d701cd75a6cc81/Flask_Migrate-3.1.0-py3-none-any.whl
+Flask-SQLAlchemy @ file:///Users/alex/Library/Caches/pypoetry/artifacts/8b/d2/95/804f654e461ccc7c2933e739151c579035ac30f4db09e9c21ce4227a83/Flask_SQLAlchemy-2.5.1-py2.py3-none-any.whl
+greenlet @ file:///Users/alex/Library/Caches/pypoetry/artifacts/2d/52/19/2f8f012401a0c2ddd5bde1f3ea89d1201d04123d65aaa690c3c55ba3f5/greenlet-1.1.2-cp39-cp39-macosx_10_14_x86_64.whl
+itsdangerous @ file:///Users/alex/Library/Caches/pypoetry/artifacts/56/85/a6/70db371e4b63cdd55bf95de92ac726d8cf622812e0d7383910edd55619/itsdangerous-2.0.1-py3-none-any.whl
+Jinja2 @ file:///Users/alex/Library/Caches/pypoetry/artifacts/fc/e8/3b/9b0bbada51e1ddcd5eab4a7f77da936b60726f30aa84aee3a0fd15007d/Jinja2-3.0.2-py3-none-any.whl
+Mako @ file:///Users/alex/Library/Caches/pypoetry/artifacts/8b/da/61/7f0c9fd9a7e251becf1a152f63177bb386f586b0379aeb0cbfd00518a8/Mako-1.1.5-py2.py3-none-any.whl
+MarkupSafe @ file:///Users/alex/Library/Caches/pypoetry/artifacts/20/e4/29/5b1a93d4ee8437f01551437cffbb57ba6744c59796443ca99051473f75/MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_x86_64.whl
+SQLAlchemy @ file:///Users/alex/Library/Caches/pypoetry/artifacts/66/0e/1d/f596972f6b5d32fa6c8736fed0a178937c789a6c0c6fb29379a49c1f1d/SQLAlchemy-1.4.26-cp39-cp39-macosx_10_14_x86_64.whl
+Werkzeug @ file:///Users/alex/Library/Caches/pypoetry/artifacts/dc/22/44/bd6da3eabb9c2469b87c362534f57c29803f4ad859ade03b66b943d84b/Werkzeug-2.0.2-py3-none-any.whl

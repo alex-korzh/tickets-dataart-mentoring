@@ -8,7 +8,21 @@ class StationTypeEnum(enum.Enum):
     railway_station = "R"
 
 
-class Locality(db.Model):
+class ChangeableMixin:
+
+    def update(self, data):
+        for k, v in data.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+        db.session.commit()
+        return self
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Locality(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     population = db.Column(db.Integer)
@@ -27,19 +41,8 @@ class Locality(db.Model):
             "longitude": self.longitude,
         }
 
-    def update(self, data):
-        for k, v in data.items():
-            if hasattr(self, k):
-                setattr(self, k, v)
-        db.session.commit()
-        return self
 
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Station(db.Model):
+class Station(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     station_type = db.Column(db.Enum(StationTypeEnum))
@@ -56,19 +59,8 @@ class Station(db.Model):
             "station_type": self.station_type,
         }
 
-    def update(self, data):
-        for k, v in data.items():
-            if hasattr(self, k):
-                setattr(self, k, v)
-        db.session.commit()
-        return self
 
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-
-class Ticket(db.Model):
+class Ticket(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     id_station_departure = db.Column(db.Integer, db.ForeignKey("station.id"))
@@ -88,14 +80,3 @@ class Ticket(db.Model):
             "departure_time": self.departure_time,
             "arrival_time": self.arrival_time,
         }
-
-    def update(self, data):
-        for k, v in data.items():
-            if hasattr(self, k):
-                setattr(self, k, v)
-        db.session.commit()
-        return self
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()

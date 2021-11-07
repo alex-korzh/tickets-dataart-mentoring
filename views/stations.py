@@ -1,7 +1,8 @@
-from flask import jsonify, request
+from http import HTTPStatus
+
+from flask import jsonify, request, Response
 from main import app
 from models import Station
-from .common import HttpStatus
 
 
 @app.route('/stations/', methods=['GET'])
@@ -22,28 +23,15 @@ def get_stations_id(station_id):
     return jsonify([l.to_dict() for l in rez_stations])
 
 
-@app.route('/stations/<int:station_id>', methods=['PUT', 'DELETE'])
+@app.route('/stations/<int:station_id>', methods=['PUT'])
 def update_station(station_id):
     rez_station = Station.query.get(station_id)
-    construct = {}
-    if request.method == 'PUT':
-        rez_station.update(request.json)
-        construct['success'] = True
-        construct['message'] = 'Data saved'
-        response = jsonify(construct)
-        response.status_code = HttpStatus.OK
-    elif request.method == 'DELETE':
-        try:
-            rez_station.delete()
-            construct['success'] = True
-            construct['message'] = 'Station has been delete.'
-            response = jsonify(construct)
-            response.status_code = HttpStatus.OK
-        except Exception as e:
-            construct['success'] = False
-            construct['error'] = str(e)
-            response = jsonify(construct)
-            response.status_code = HttpStatus.BAD_REQUEST
+    rez_station.update(request.json)
+    return Response(status=HTTPStatus.OK)
 
-    return response
 
+@app.route('/stations/<int:station_id>', methods=['DELETE'])
+def delete_station(station_id):
+    rez_station = Station.query.get(station_id)
+    rez_station.delete()
+    return Response(status=HTTPStatus.OK)
