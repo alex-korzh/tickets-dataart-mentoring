@@ -1,5 +1,7 @@
 from http import HTTPStatus
 from flask import jsonify, request, Response
+
+from dto import StationUpdateDto
 from main import app
 from models import Station
 
@@ -10,22 +12,23 @@ def get_stations():
     return jsonify([l.to_dict() for l in stations])
 
 
-@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
-def get_stations_locality_id(locality_id):
-    rez_stations = Station.query.filter_by(id_locality=locality_id).first()
-    return jsonify([l.to_dict() for l in rez_stations])
-
-
 @app.route('/stations/<int:station_id>', methods=['GET'])
 def get_stations_id(station_id):
     rez_stations = Station.query.get(station_id)
     return jsonify([rez_stations.to_dict() for l in rez_stations])
 
 
+@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
+def get_stations_locality_id(locality_id):
+    rez_stations = Station.query.filter_by(id_locality=locality_id).first()
+    return jsonify([l.to_dict() for l in rez_stations])
+
+
 @app.route('/stations/<int:station_id>', methods=['PUT'])
 def update_station(station_id):
     rez_station = Station.query.get(station_id)
-    rez_station.update(request.json)
+    update_dto = StationUpdateDto(**request.json)
+    rez_station.update(name=update_dto.name, station_type=update_dto.station_type)
     return Response(status=HTTPStatus.OK)
 
 

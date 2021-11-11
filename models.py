@@ -70,8 +70,10 @@ class Ticket(db.Model, ChangeableMixin):
     name = db.Column(db.String)
     id_station_departure = db.Column(db.Integer, db.ForeignKey("station.id"))
     id_station_arrival = db.Column(db.Integer, db.ForeignKey("station.id"))
-    departure_time = db.Column(db.DateTime(), default=datetime.utcnow)
-    arrival_time = db.Column(db.DateTime(), default=datetime.utcnow)
+    departure_time = db.Column(db.DateTime, default=datetime.utcnow)
+    arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
+    passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
 
     def __repr__(self):
         return f"Ticket {self.name}"
@@ -88,6 +90,9 @@ class Ticket(db.Model, ChangeableMixin):
 
 
 class User(db.Model, ChangeableMixin):
+    # todo name и surname = одно поле full_name
+    # todo account_type не нужен, достаточно is_admin
+    # todo добавить email
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     surname = db.Column(db.String)
