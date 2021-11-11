@@ -29,3 +29,8 @@ def delete_user(user_id):
     rez_user.delete()
     return Response(status=HTTPStatus.OK)
 
+
+# Проверка пароля на надежность
+#def password_strong(data):
+    #    return not(len(data) < 10 or data.isdigit() or data.isalpha() or data.islower() or data.isupper()) \
+#            and data.isalnum()

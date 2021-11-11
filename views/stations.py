@@ -10,16 +10,16 @@ def get_stations():
     return jsonify([l.to_dict() for l in stations])
 
 
-@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
-def get_stations_locality_id(locality_id):
-    rez_stations = Station.query.filter_by(id_locality=locality_id).first()
-    return jsonify([l.to_dict() for l in rez_stations])
-
-
 @app.route('/stations/<int:station_id>', methods=['GET'])
 def get_stations_id(station_id):
     rez_stations = Station.query.get(station_id)
     return jsonify([rez_stations.to_dict() for l in rez_stations])
+
+
+@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
+def get_stations_locality_id(locality_id):
+    rez_stations = Station.query.filter_by(id_locality=locality_id).first()
+    return jsonify([l.to_dict() for l in rez_stations])
 
 
 @app.route('/stations/<int:station_id>', methods=['PUT'])

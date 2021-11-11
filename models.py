@@ -71,7 +71,14 @@ class Ticket(db.Model, ChangeableMixin):
     id_station_departure = db.Column(db.Integer, db.ForeignKey("station.id"))
     id_station_arrival = db.Column(db.Integer, db.ForeignKey("station.id"))
     departure_time = db.Column(db.DateTime(), default=datetime.utcnow)
-    arrival_time = db.Column(db.DateTime(), default=datetime.utcnow)
+    travel_time = db.Column(db.DateTime(), default=datetime.utcnow)
+    passenger_name = db.Column(db.String)
+    passenger_surname = db.Column(db.String)
+    passenger_middle_name = db.Column(db.String)
+    passenger_passport_number = db.Column(db.Integer)
+    passenger_passport_series = db.Column(db.Integer)
+    passenger_passport_date = db.Column(db.DateTime(), default=datetime.utcnow)
+    passenger_passport_issued = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __repr__(self):
         return f"Ticket {self.name}"
@@ -83,7 +90,14 @@ class Ticket(db.Model, ChangeableMixin):
             "id_station_departure": self.id_station_departure,
             "id_station_arrival": self.id_station_arrival,
             "departure_time": self.departure_time,
-            "arrival_time": self.arrival_time,
+            "travel_time": self.travel_time,
+            "passenger_name": self.passenger_name,
+            "passenger_surname": self.passenger_surname,
+            "passenger_middle_name": self.passenger_middle_name,
+            "passenger_passport_number": self.passenger_passport_number,
+            "passenger_passport_series": self.passenger_passport_series,
+            "passenger_passport_date": self.passenger_passport_date,
+            "passenger_passport_issued": self.passenger_passport_issued,
         }
 
 
