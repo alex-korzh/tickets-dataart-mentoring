@@ -9,8 +9,8 @@ class StationTypeEnum(enum.Enum):
 
 
 class AccountType(enum.Enum):
-    Administrator = "A"
-    User = "U"
+    admin = "A"
+    user = "U"
 
 
 class ChangeableMixin:
