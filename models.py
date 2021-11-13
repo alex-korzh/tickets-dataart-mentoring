@@ -92,10 +92,10 @@ class Ticket(db.Model, ChangeableMixin):
 class User(db.Model, ChangeableMixin):
     # todo name и surname = одно поле full_name
     # todo account_type не нужен, достаточно is_admin
-    # todo добавить email
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     surname = db.Column(db.String)
+    email = db.Column(db.String)
     account_type = db.Column(db.Enum(AccountType))
     password = db.Column(db.String)
 
