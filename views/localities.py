@@ -1,13 +1,19 @@
 from http import HTTPStatus
 from flask import jsonify, request, Response
+
+from dto import StationUpdateDto
 from main import app
+from services.stations import StationService
 from models import Locality
 
 
-@app.route('/localities/', methods=['GET'])
+@app.route('/localities', methods=['GET'])
 def get_locality():
-    localities = Locality.query.all()
-    return jsonify([l.to_dict() for l in localities])
+    stations = StationService.get_all()
+    return jsonify([s.json() for s in stations])
+    ality.query.all()
+    rez = jsonify([l.to_dict() for l in localities])
+    return rez
 
 
 @app.route('/localities/<int:locality_id>', methods=['GET'])

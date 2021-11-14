@@ -4,10 +4,7 @@ from main import app
 from models import User
 
 
-# todo везде поставить / в конце url или везде убрать
-
-
-@app.route('/users/', methods=['GET'])
+@app.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     return jsonify([l.to_dict() for l in users])

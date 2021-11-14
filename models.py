@@ -98,6 +98,8 @@ class User(db.Model, ChangeableMixin):
     email = db.Column(db.String)
     account_type = db.Column(db.Enum(AccountType))
     password = db.Column(db.String)
+    is_deleted = db.Column(db.Boolean)
+    is_blocked = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"User {self.name}"
@@ -109,6 +111,8 @@ class User(db.Model, ChangeableMixin):
             "surname": self.surname,
             "account_type": self.account_type,
             "password": self.password,
+            "is_deleted": self.is_deleted,
+            "is_blocked": self.is_blocked,
         }
 
 #Подумать над структурой таблици, что можно добавить

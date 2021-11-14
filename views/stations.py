@@ -7,16 +7,16 @@ from models import Station
 from services.stations import StationService
 
 
-@app.route('/stations/', methods=['GET'])
+@app.route('/stations', methods=['GET'])
 def get_stations():
     stations = StationService.get_all()
-    return [s.json for s in stations]
+    return jsonify([s.json() for s in stations])
 
 
 @app.route('/stations/<int:station_id>', methods=['GET'])
 def get_stations_id(station_id):
-    rez_station = Station.query.get(station_id)
-    return jsonify(rez_station.to_dict())
+    station = StationService.get_one_by_id(station_id)
+    return station.json()
 
 
 @app.route('/localities/<int:locality_id>/stations/', methods=['GET'])

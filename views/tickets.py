@@ -4,7 +4,7 @@ from models import Ticket
 from http import HTTPStatus
 
 
-@app.route('/tickets/', methods=['GET'])
+@app.route('/tickets', methods=['GET'])
 def get_tickets():
     tickets = Ticket.query.all()
     return jsonify([l.to_dict() for l in tickets])
