@@ -8,11 +8,6 @@ class StationTypeEnum(enum.Enum):
     railway_station = "R"
 
 
-class AccountType(enum.Enum):
-    admin = "A"
-    user = "U"
-
-
 class ChangeableMixin:
 
     def update(self, data):
@@ -74,7 +69,6 @@ class Ticket(db.Model, ChangeableMixin):
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
-
     def __repr__(self):
         return f"Ticket {self.name}"
 
@@ -93,10 +87,9 @@ class User(db.Model, ChangeableMixin):
     # todo name и surname = одно поле full_name
     # todo account_type не нужен, достаточно is_admin
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    surname = db.Column(db.String)
+    full_name = db.Column(db.String)
     email = db.Column(db.String)
-    account_type = db.Column(db.Enum(AccountType))
+    is_admin = db.Column(db.Boolean)
     password = db.Column(db.String)
     is_deleted = db.Column(db.Boolean)
     is_blocked = db.Column(db.Boolean)
@@ -107,12 +100,10 @@ class User(db.Model, ChangeableMixin):
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.name,
-            "surname": self.surname,
-            "account_type": self.account_type,
+            "full_name": self.full_name,
+            "email": self.email,
+            "is_admin": self.is_admin,
             "password": self.password,
             "is_deleted": self.is_deleted,
             "is_blocked": self.is_blocked,
         }
-
-#Подумать над структурой таблици, что можно добавить

@@ -9,7 +9,6 @@ class StationService:
         localities = Locality.query.all()
         return [LocalityDto(**s.to_dict()) for s in localities]
 
-
     @staticmethod
     def get_one_by_id(id: int) -> LocalityDto:
         rez_localities = Locality.query.get(id)

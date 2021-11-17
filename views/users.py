@@ -2,18 +2,19 @@ from http import HTTPStatus
 from flask import jsonify, request, Response
 from main import app
 from models import User
+from services.users import StationService
 
 
 @app.route('/users', methods=['GET'])
 def get_users():
-    users = User.query.all()
-    return jsonify([l.to_dict() for l in users])
+    users = StationService.get_all()
+    return jsonify([s.json() for s in users])
 
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user_id(user_id):
-    rez_user = User.query.get(user_id)
-    return jsonify(rez_user.to_dict())
+    users = StationService.get_one_by_id(user_id)
+    return users.json()
 
 
 @app.route('/users/<int:user_id>', methods=['PUT'])
@@ -27,9 +28,10 @@ def update_user(user_id):
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     # todo не удалять а сделать поле is_deleted, отмечать его
-    rez_user = User.query.get(user_id)
-    rez_user.delete()
+    users = StationService.delete(user_id)
     return Response(status=HTTPStatus.OK)
+
+
 
 
 # Проверка пароля на надежность

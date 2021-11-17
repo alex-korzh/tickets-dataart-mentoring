@@ -14,14 +14,20 @@ class StationDto(StationUpdateDto):
     id_locality: int
 
 
-class TicketDto(StationUpdateDto):
+class TicketDto(BaseModel):
     id: int
     id_station_departure: int
     id_station_arrival: int
     #passenger_id: int
 
 
-class LocalityDto(StationUpdateDto):
+class UserDto(BaseModel):
+    id: int
+    id_station_departure: int
+    id_station_arrival: int
+
+
+class LocalityDto(BaseModel):
     id: int
     name: str
 

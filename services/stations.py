@@ -10,7 +10,6 @@ class StationService:
         stations = Station.query.all()
         return [StationDto(**s.to_dict()) for s in stations]
 
-
     @staticmethod
     def get_one_by_id(id: int) -> StationDto:
         rez_station = Station.query.get(id)
