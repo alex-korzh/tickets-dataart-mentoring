@@ -2,18 +2,20 @@ from flask import jsonify, request, Response
 from main import app
 from models import Ticket
 from http import HTTPStatus
+from dto import StationUpdateDto
+from services.tickets import StationService
 
 
 @app.route('/tickets', methods=['GET'])
 def get_tickets():
-    tickets = Ticket.query.all()
-    return jsonify([l.to_dict() for l in tickets])
+    tickets = StationService.get_all()
+    return jsonify([s.json() for s in tickets])
 
 
 @app.route('/tickets/<int:ticket_id>', methods=['GET'])
 def get_tickets_id(ticket_id):
-    rez_tickets = Ticket.query.get(ticket_id)
-    return jsonify(rez_tickets.to_dict())
+    ticket = StationService.get_one_by_id(ticket_id)
+    return ticket.json()
 
 
 @app.route('/tickets/<int:ticket_id>', methods=['PUT'])
