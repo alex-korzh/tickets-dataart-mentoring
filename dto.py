@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from models.main import StationTypeEnum
 from typing import Optional
 
@@ -22,8 +22,11 @@ class TicketDto(BaseModel):
 
 class UserDto(BaseModel):
     id: int
-    id_station_departure: int
-    id_station_arrival: int
+    full_name: Optional[str]
+    email: str
+    is_admin: Optional[bool]
+    is_deleted: Optional[bool]
+    is_blocked: Optional[bool]
 
 
 class LocalityDto(BaseModel):
@@ -43,3 +46,16 @@ class RefreshDto(BaseModel):
 class CredentialsDto(RefreshDto):
     id: int
     refresh_token: str
+
+
+class SignupDto(BaseModel):
+    email: str
+    password: str
+    repeated_password: str
+
+    @validator('repeated_password')
+    def validate_passwords_match(cls, v, values, **kwargs):
+        if v != values['password']:
+            raise ValueError('passwords do not match')
+
+

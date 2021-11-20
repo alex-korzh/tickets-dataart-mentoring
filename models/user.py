@@ -22,7 +22,6 @@ class User(db.Model, ChangeableMixin):
             "full_name": self.full_name,
             "email": self.email,
             "is_admin": self.is_admin,
-            "password": self.password,
             "is_deleted": self.is_deleted,
             "is_blocked": self.is_blocked,
         }

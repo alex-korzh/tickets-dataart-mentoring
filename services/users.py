@@ -1,5 +1,8 @@
 from typing import List
-from dto import UserDto
+
+from werkzeug.security import generate_password_hash
+
+from dto import UserDto, SignupDto
 from models import User
 from main import db
 
@@ -18,6 +21,13 @@ class UserService:
     @staticmethod
     def delete(id: int) -> UserDto:
         rez_user = User.query.get(id)
-        setattr(rez_user, "is_deleted", True)
+        rez_user.is_deleted = True
         db.session.commit()
         return UserDto(**rez_user.to_dict())
+
+    @staticmethod
+    def create(data: SignupDto) -> UserDto:
+        new_user = User(email=data.email, password=generate_password_hash(data.password))
+        db.session.add(new_user)
+        db.session.commit()
+        return UserDto(**new_user.to_dict())
