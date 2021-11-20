@@ -1,25 +1,20 @@
 import enum
-from main import db
 from datetime import datetime
+
+from main import db
+from models.base import ChangeableMixin
+
+flight_to_station = db.Table(
+    'flight_to_station',
+    db.metadata,
+    db.Column('flight_id', db.ForeignKey('flight.id')),
+    db.Column('station_id', db.ForeignKey('station.id'))
+)
 
 
 class StationTypeEnum(enum.Enum):
     airport = "A"
     railway_station = "R"
-
-
-class ChangeableMixin:
-
-    def update(self, data):
-        for k, v in data.items():
-            if hasattr(self, k):
-                setattr(self, k, v)
-        db.session.commit()
-        return self
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
 
 
 class Locality(db.Model, ChangeableMixin):
@@ -69,6 +64,8 @@ class Ticket(db.Model, ChangeableMixin):
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
+    flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
+
     def __repr__(self):
         return f"Ticket {self.name}"
 
@@ -83,27 +80,9 @@ class Ticket(db.Model, ChangeableMixin):
         }
 
 
-class User(db.Model, ChangeableMixin):
-    # todo name и surname = одно поле full_name
-    # todo account_type не нужен, достаточно is_admin
+class Flight(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
-    full_name = db.Column(db.String)
-    email = db.Column(db.String)
-    is_admin = db.Column(db.Boolean)
-    password = db.Column(db.String)
-    is_deleted = db.Column(db.Boolean)
-    is_blocked = db.Column(db.Boolean)
-
-    def __repr__(self):
-        return f"User {self.name}"
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "full_name": self.full_name,
-            "email": self.email,
-            "is_admin": self.is_admin,
-            "password": self.password,
-            "is_deleted": self.is_deleted,
-            "is_blocked": self.is_blocked,
-        }
+    name = db.Column(db.String)
+    departure_time = db.Column(db.DateTime, default=datetime.utcnow)
+    arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
+    stations = db.relationship("Station", secondary=flight_to_station)

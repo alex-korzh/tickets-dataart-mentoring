@@ -1,6 +1,5 @@
-from dataclasses import dataclass
 from pydantic import BaseModel
-from models import StationTypeEnum, AccountType
+from models.main import StationTypeEnum
 from typing import Optional
 
 

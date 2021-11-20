@@ -4,7 +4,7 @@ from models import Ticket
 
 
 # TODO попробуй закончить
-class StationService:
+class TicketService:
     @staticmethod
     def get_all() -> List[TicketDto]:
         tickets = Ticket.query.all()

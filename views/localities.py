@@ -3,19 +3,19 @@ from flask import jsonify, request, Response
 
 from dto import StationUpdateDto
 from main import app
-from services.localities import StationService
+from services.localities import LocalityService
 from models import Locality
 
 
 @app.route('/localities', methods=['GET'])
 def get_locality():
-    localities = StationService.get_all()
+    localities = LocalityService.get_all()
     return jsonify([s.json() for s in localities])
 
 
 @app.route('/localities/<int:locality_id>', methods=['GET'])
 def get_locality_id(locality_id):
-    station = StationService.get_one_by_id(locality_id)
+    station = LocalityService.get_one_by_id(locality_id)
     return station.json()
 
 

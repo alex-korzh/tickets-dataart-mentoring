@@ -2,18 +2,18 @@ from http import HTTPStatus
 from flask import jsonify, request, Response
 from main import app
 from models import User
-from services.users import StationService
+from services.users import UserService
 
 
 @app.route('/users', methods=['GET'])
 def get_users():
-    users = StationService.get_all()
+    users = UserService.get_all()
     return jsonify([s.json() for s in users])
 
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user_id(user_id):
-    users = StationService.get_one_by_id(user_id)
+    users = UserService.get_one_by_id(user_id)
     return users.json()
 
 
@@ -28,7 +28,7 @@ def update_user(user_id):
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     # todo не удалять а сделать поле is_deleted, отмечать его
-    users = StationService.delete(user_id)
+    users = UserService.delete(user_id)
     return Response(status=HTTPStatus.OK)
 
 

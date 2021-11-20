@@ -3,18 +3,18 @@ from main import app
 from models import Ticket
 from http import HTTPStatus
 from dto import StationUpdateDto
-from services.tickets import StationService
+from services.tickets import TicketService
 
 
 @app.route('/tickets', methods=['GET'])
 def get_tickets():
-    tickets = StationService.get_all()
+    tickets = TicketService.get_all()
     return jsonify([s.json() for s in tickets])
 
 
 @app.route('/tickets/<int:ticket_id>', methods=['GET'])
 def get_tickets_id(ticket_id):
-    ticket = StationService.get_one_by_id(ticket_id)
+    ticket = TicketService.get_one_by_id(ticket_id)
     return ticket.json()
 
 

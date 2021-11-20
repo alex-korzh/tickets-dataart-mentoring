@@ -3,7 +3,7 @@ from dto import LocalityDto
 from models import Locality
 
 
-class StationService:
+class LocalityService:
     @staticmethod
     def get_all() -> List[LocalityDto]:
         localities = Locality.query.all()

@@ -4,7 +4,7 @@ from models import User
 from main import db
 
 
-class StationService:
+class UserService:
     @staticmethod
     def get_all() -> List[UserDto]:
         tickets = User.query.all()
