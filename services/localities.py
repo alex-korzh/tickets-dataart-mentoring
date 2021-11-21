@@ -13,3 +13,4 @@ class LocalityService:
     def get_one_by_id(id: int) -> LocalityDto:
         rez_localities = Locality.query.get(id)
         return LocalityDto(**rez_localities.to_dict())
+

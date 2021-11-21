@@ -26,6 +26,13 @@ class UserService:
         return UserDto(**rez_user.to_dict())
 
     @staticmethod
+    def blocked_user(id: int) -> UserDto:
+        rez_user = User.query.get(id)
+        rez_user.is_blocked = True
+        db.session.commit()
+        return UserDto(**rez_user.to_dict())
+
+    @staticmethod
     def create(data: SignupDto) -> UserDto:
         new_user = User(email=data.email, password=generate_password_hash(data.password))
         db.session.add(new_user)

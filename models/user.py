@@ -3,8 +3,7 @@ from models.base import ChangeableMixin
 
 
 class User(db.Model, ChangeableMixin):
-    # todo name и surname = одно поле full_name
-    # todo account_type не нужен, достаточно is_admin
+
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String)
     email = db.Column(db.String)

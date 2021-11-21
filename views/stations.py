@@ -21,12 +21,15 @@ def get_stations_id(station_id):
 
 @app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
 def get_stations_locality_id(locality_id):
-    rez_station = Station.query.filter_by(id_locality=locality_id).first()
-    return jsonify([l.to_dict() for l in rez_station])
+    rez_stations = StationService.get_all_by_locality(locality_id)
+    return jsonify([s.json() for s in rez_stations])
 
 
 @app.route('/stations/<int:station_id>', methods=['PUT'])
 def update_station(station_id):
+    rez_stations = StationService.update_station(station_id)
+    return Response(status=HTTPStatus.OK)
+
     rez_station = Station.query.get(station_id)
     update_dto = StationUpdateDto(**request.json)
     rez_station.update(name=update_dto.name, station_type=update_dto.station_type)
