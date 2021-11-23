@@ -17,7 +17,6 @@ class TicketDto(BaseModel):
     id: int
     id_station_departure: int
     id_station_arrival: int
-    #passenger_id: int
 
 
 class UserDto(BaseModel):
@@ -32,6 +31,12 @@ class UserDto(BaseModel):
 class LocalityDto(BaseModel):
     id: int
     name: str
+
+
+class FlightDto(BaseModel):
+    id: int
+    name: str
+    #stations: str
 
 
 class LoginDto(BaseModel):

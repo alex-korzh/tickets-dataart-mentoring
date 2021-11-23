@@ -27,9 +27,6 @@ def get_stations_locality_id(locality_id):
 
 @app.route('/stations/<int:station_id>', methods=['PUT'])
 def update_station(station_id):
-    rez_stations = StationService.update_station(station_id)
-    return Response(status=HTTPStatus.OK)
-
     rez_station = Station.query.get(station_id)
     update_dto = StationUpdateDto(**request.json)
     rez_station.update(name=update_dto.name, station_type=update_dto.station_type)

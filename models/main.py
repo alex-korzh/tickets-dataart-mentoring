@@ -63,7 +63,6 @@ class Ticket(db.Model, ChangeableMixin):
     departure_time = db.Column(db.DateTime, default=datetime.utcnow)
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
     flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
 
     def __repr__(self):
@@ -86,3 +85,15 @@ class Flight(db.Model, ChangeableMixin):
     departure_time = db.Column(db.DateTime, default=datetime.utcnow)
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     stations = db.relationship("Station", secondary=flight_to_station)
+
+    def __repr__(self):
+        return f"Flight {self.name}"
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "departure_time": self.departure_time,
+            "arrival_time": self.arrival_time,
+            "stations": self.stations,
+        }
