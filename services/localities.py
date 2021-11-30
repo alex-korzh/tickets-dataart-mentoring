@@ -1,7 +1,7 @@
 from typing import List
 from dto import LocalityDto
 from models import Locality
-
+from http import HTTPStatus
 
 class LocalityService:
     @staticmethod
@@ -14,3 +14,14 @@ class LocalityService:
         rez_localities = Locality.query.get(id)
         return LocalityDto(**rez_localities.to_dict())
 
+    @staticmethod
+    def delete_by_id(id: int) -> LocalityDto:
+        rez_locality = Locality.query.get(id)
+        rez_locality.delete()
+        return HTTPStatus.OK
+
+    @staticmethod
+    def put_by_id(id: int, request) -> LocalityDto:
+        rez_locality = Locality.query.get(id)
+        rez_locality.update(request)
+        return HTTPStatus.OK

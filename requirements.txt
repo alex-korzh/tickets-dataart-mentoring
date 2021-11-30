@@ -4,3 +4,4 @@ flask_migrate
 alembic
 flask-jwt-extended
 pydantic
+psycopg2-binary

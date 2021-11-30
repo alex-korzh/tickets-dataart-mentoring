@@ -1,7 +1,5 @@
 from http import HTTPStatus
 from flask import jsonify, request, Response
-
-from dto import StationUpdateDto
 from main import app
 from services.localities import LocalityService
 from models import Locality
@@ -21,15 +19,13 @@ def get_locality_id(locality_id):
 
 @app.route('/localities/<int:locality_id>', methods=['PUT'])
 def update_locality(locality_id):
-    rez_locality = Locality.query.get(locality_id)
-    rez_locality.update(request.json)
+    LocalityService.put_by_id(locality_id, request.json)
     return Response(status=HTTPStatus.OK)
 
 
 @app.route('/localities/<int:locality_id>', methods=['DELETE'])
 def delete_locality(locality_id):
-    rez_locality = Locality.query.get(locality_id)
-    rez_locality.delete()
+    LocalityService.delete_by_id(locality_id)
     return Response(status=HTTPStatus.OK)
 
 
