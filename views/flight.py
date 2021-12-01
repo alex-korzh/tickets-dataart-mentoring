@@ -33,3 +33,8 @@ def update_flight(flight_id):
     return Response(status=HTTPStatus.OK)
 
 
+@app.route('/flights/<int:flight_id>', methods=['DELETE'])
+def delete_flight(flight_id):
+    FlightService.delete(flight_id)
+    return Response(status=HTTPStatus.OK)
+

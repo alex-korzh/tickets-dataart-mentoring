@@ -34,6 +34,5 @@ def update_station(station_id):
 
 @app.route('/stations/<int:station_id>', methods=['DELETE'])
 def delete_station(station_id):
-    rez_station = Station.query.get(station_id)
-    rez_station.delete()
+    StationService.delete_by_id(station_id)
     return Response(status=HTTPStatus.OK)

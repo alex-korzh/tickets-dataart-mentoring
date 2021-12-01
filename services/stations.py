@@ -20,3 +20,7 @@ class StationService:
         stations = Station.query.filter_by(id_locality=id).all()
         return [StationDto(**s.to_dict()) for s in stations]
 
+    @staticmethod
+    def delete_by_id(id: int) -> StationDto:
+        rez_station = Station.query.get(id)
+        rez_station.delete()

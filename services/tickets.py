@@ -14,3 +14,8 @@ class TicketService:
     def get_one_by_id(id: int) -> TicketDto:
         rez_ticket = Ticket.query.get(id)
         return TicketDto(**rez_ticket.to_dict())
+
+    @staticmethod
+    def delete_by_id(id: int) -> TicketDto:
+        rez_locality = Ticket.query.get(id)
+        rez_locality.delete()

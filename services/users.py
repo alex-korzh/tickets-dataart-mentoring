@@ -23,14 +23,12 @@ class UserService:
         rez_user = User.query.get(id)
         rez_user.is_deleted = True
         db.session.commit()
-        return UserDto(**rez_user.to_dict())
 
     @staticmethod
     def blocked_user(id: int) -> UserDto:
         rez_user = User.query.get(id)
         rez_user.is_blocked = True
         db.session.commit()
-        return UserDto(**rez_user.to_dict())
 
     @staticmethod
     def create(data: SignupDto) -> UserDto:

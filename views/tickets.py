@@ -27,7 +27,5 @@ def update_ticket(ticket_id):
 
 @app.route('/tickets/<int:ticket_id>', methods=['DELETE'])
 def delete_ticket(ticket_id):
-    rez_tickets = Ticket.query.get(ticket_id)
-    rez_tickets.delete()
+    TicketService.delete_by_id(ticket_id)
     return Response(status=HTTPStatus.OK)
-

@@ -18,3 +18,8 @@ class FlightService:
     def get_all_by_station(id: int) -> FlightDto:
         rez_flights = Flight.query.filter_by(station_id=id).all()
         return [FlightDto(**s.to_dict()) for s in rez_flights]
+
+    @staticmethod
+    def delete(id: int) -> FlightDto:
+        rez_flight = Flight.query.get(id)
+        rez_flight.delete()

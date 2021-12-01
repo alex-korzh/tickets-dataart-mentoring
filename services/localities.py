@@ -18,10 +18,8 @@ class LocalityService:
     def delete_by_id(id: int) -> LocalityDto:
         rez_locality = Locality.query.get(id)
         rez_locality.delete()
-        return HTTPStatus.OK
 
     @staticmethod
     def put_by_id(id: int, request) -> LocalityDto:
         rez_locality = Locality.query.get(id)
         rez_locality.update(request)
-        return HTTPStatus.OK

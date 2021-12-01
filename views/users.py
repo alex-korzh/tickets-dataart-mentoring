@@ -19,13 +19,13 @@ def get_user_id(user_id):
 
 @app.route('/users/<int:user_id>', methods=['PUT'])
 def blocked_user(user_id):
-    users = UserService.blocked_user(user_id)
+    UserService.blocked_user(user_id)
     return Response(status=HTTPStatus.OK)
 
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    users = UserService.delete(user_id)
+    UserService.delete(user_id)
     return Response(status=HTTPStatus.OK)
 
 
