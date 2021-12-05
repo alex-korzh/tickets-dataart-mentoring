@@ -1,4 +1,4 @@
-from flask import jsonify, request, Response
+from flask import request, Response
 from main import app
 from models import Ticket
 from http import HTTPStatus
@@ -8,7 +8,7 @@ from services.tickets import TicketService
 @app.route('/tickets', methods=['GET'])
 def get_tickets():
     tickets = TicketService.get_all()
-    return jsonify([s.json() for s in tickets])
+    return tickets.json()
 
 
 @app.route('/tickets/<int:ticket_id>', methods=['GET'])

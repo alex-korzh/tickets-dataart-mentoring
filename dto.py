@@ -42,6 +42,22 @@ class FlightListResponse(BaseModel):
     flights: List[FlightDto]
 
 
+class LocalityListResponse(BaseModel):
+    localities: List[LocalityDto]
+
+
+class StationListResponse(BaseModel):
+    stations: List[StationDto]
+
+
+class TicketListResponse(BaseModel):
+    tickets: List[TicketDto]
+
+
+class UsersListResponse(BaseModel):
+    users: List[UserDto]
+
+
 class LoginDto(BaseModel):
     email: str
     password: str

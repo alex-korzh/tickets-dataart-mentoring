@@ -2,13 +2,12 @@ from http import HTTPStatus
 from flask import jsonify, request, Response
 from main import app
 from services.localities import LocalityService
-from models import Locality
 
 
 @app.route('/localities', methods=['GET'])
 def get_locality():
     localities = LocalityService.get_all()
-    return jsonify([s.json() for s in localities])
+    return localities.json()
 
 
 @app.route('/localities/<int:locality_id>', methods=['GET'])

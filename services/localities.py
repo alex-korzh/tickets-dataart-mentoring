@@ -1,13 +1,13 @@
 from typing import List
-from dto import LocalityDto
+from dto import LocalityDto, LocalityListResponse
 from models import Locality
-from http import HTTPStatus
+
 
 class LocalityService:
     @staticmethod
-    def get_all() -> List[LocalityDto]:
+    def get_all() -> LocalityListResponse:
         localities = Locality.query.all()
-        return [LocalityDto(**s.to_dict()) for s in localities]
+        return LocalityListResponse(localities=[LocalityDto(**s.to_dict()) for s in localities])
 
     @staticmethod
     def get_one_by_id(id: int) -> LocalityDto:
@@ -15,11 +15,11 @@ class LocalityService:
         return LocalityDto(**rez_localities.to_dict())
 
     @staticmethod
-    def delete_by_id(id: int) -> LocalityDto:
+    def delete_by_id(id: int) -> None:
         rez_locality = Locality.query.get(id)
         rez_locality.delete()
 
     @staticmethod
-    def put_by_id(id: int, request) -> LocalityDto:
+    def put_by_id(id: int, request) -> None:
         rez_locality = Locality.query.get(id)
         rez_locality.update(request)

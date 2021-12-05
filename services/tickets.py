@@ -1,14 +1,13 @@
-from typing import List
-from dto import TicketDto
+from dto import TicketDto, TicketListResponse
 from models import Ticket
 
 
 # TODO попробуй закончить
 class TicketService:
     @staticmethod
-    def get_all() -> List[TicketDto]:
+    def get_all() -> TicketListResponse:
         tickets = Ticket.query.all()
-        return [TicketDto(**s.to_dict()) for s in tickets]
+        return TicketListResponse(tickets=[TicketDto(**s.to_dict()) for s in tickets])
 
     @staticmethod
     def get_one_by_id(id: int) -> TicketDto:
@@ -16,6 +15,6 @@ class TicketService:
         return TicketDto(**rez_ticket.to_dict())
 
     @staticmethod
-    def delete_by_id(id: int) -> TicketDto:
+    def delete_by_id(id: int) -> None:
         rez_locality = Ticket.query.get(id)
         rez_locality.delete()

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from flask import jsonify, request, Response
+from flask import request, Response
 from dto import StationUpdateDto
 from main import app
 from models import Station
@@ -7,10 +7,11 @@ from services.stations import StationService
 
 # todo переделать все множественные get по образцу flight
 
+
 @app.route('/stations', methods=['GET'])
 def get_stations():
     stations = StationService.get_all()
-    return jsonify([s.json() for s in stations])
+    return stations.json()
 
 
 @app.route('/stations/<int:station_id>', methods=['GET'])
@@ -19,10 +20,10 @@ def get_stations_id(station_id):
     return station.json()
 
 
-@app.route('/localities/<int:locality_id>/stations/', methods=['GET'])
+@app.route('/localities/<int:locality_id>/stations', methods=['GET'])
 def get_stations_locality_id(locality_id):
-    rez_stations = StationService.get_all_by_locality(locality_id)
-    return jsonify([s.json() for s in rez_stations])
+    stations = StationService.get_all_by_locality(locality_id)
+    return stations.json()
 
 
 @app.route('/stations/<int:station_id>', methods=['PUT'])

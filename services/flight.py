@@ -1,6 +1,5 @@
-from typing import List
 from dto import FlightDto, FlightListResponse
-from models import Flight, flight_to_station
+from models import Flight
 
 
 class FlightService:

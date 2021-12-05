@@ -4,7 +4,6 @@ from flask import request, Response
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from pydantic import ValidationError
 from werkzeug.security import check_password_hash
-
 from dto import LoginDto, CredentialsDto, RefreshDto, SignupDto
 from main import app
 from models import User
@@ -13,7 +12,7 @@ from services.users import UserService
 # восстановление пароля, отправка подтверждения на email
 
 
-@app.route('/login/', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     try:
         login_data = LoginDto(**request.json)
@@ -36,7 +35,7 @@ def login():
     return res.json()
 
 
-@app.route('/refresh/', methods=['POST'])
+@app.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh():
     current_user = get_jwt_identity()
@@ -44,7 +43,7 @@ def refresh():
     return RefreshDto(access_token=access_token).json()
 
 
-@app.route('/signup/', methods=['POST'])
+@app.route('/signup', methods=['POST'])
 def signup():
     try:
         data = SignupDto(**request.json)
