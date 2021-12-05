@@ -1,5 +1,4 @@
 import random
-from typing import List
 from werkzeug.security import generate_password_hash
 from dto import UserDto, SignupDto, UsersListResponse
 from models import User
@@ -9,7 +8,7 @@ from utils import send_verification_email
 
 class UserService:
     @staticmethod
-    def get_all() -> List[UserDto]:
+    def get_all() -> UsersListResponse:
         tickets = User.query.all()
         return UsersListResponse(tickets=[UserDto(**s.to_dict()) for s in tickets])
 

@@ -8,7 +8,7 @@ from services.users import UserService
 @app.route('/users', methods=['GET'])
 def get_users():
     users = UserService.get_all()
-    return jsonify([s.json() for s in users])
+    return users.json()
 
 
 @app.route('/users/<int:user_id>', methods=['GET'])

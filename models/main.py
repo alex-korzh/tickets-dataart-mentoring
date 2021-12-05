@@ -1,20 +1,29 @@
 import enum
-from datetime import datetime
-
 from main import db
+from datetime import datetime
 from models.base import ChangeableMixin
+
 
 flight_to_station = db.Table(
     'flight_to_station',
     db.metadata,
     db.Column('flight_id', db.ForeignKey('flight.id')),
-    db.Column('station_id', db.ForeignKey('station.id'))
-)
+    db.Column('station_id', db.ForeignKey('station.id')),
+    db.Column('departure_time', db.DateTime, default=datetime.utcnow),
+    db.Column('arrival_time', db.DateTime, default=datetime.utcnow))
 
 
 class StationTypeEnum(enum.Enum):
     airport = "A"
     railway_station = "R"
+
+
+class FlightStatusEnum(enum.Enum):
+    created = "0"
+    booked = "1"
+    cancel_booked = "2"
+    paid = "3"
+    refund_after_payment = "4"
 
 
 class Locality(db.Model, ChangeableMixin):
@@ -84,10 +93,9 @@ class Ticket(db.Model, ChangeableMixin):
 class Flight(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    departure_time = db.Column(db.DateTime, default=datetime.utcnow)
-    arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     stations = db.relationship("Station", secondary=flight_to_station)
-    # TODO подумать как изменить структуру чтобы возвращать первую и последнюю станции рейса (добавить даты в промежуточную таблицу?)
+    #status = db.Column(db.Enum(FlightStatusEnum))
+    # todo подумать как изменить структуру чтобы возвращать первую и последнюю станции рейса (добавить даты в промежуточную таблицу?)
     # todo ввести количество посадочных мест чтобы не продать лишних билетов
 
     def __repr__(self):
@@ -97,7 +105,8 @@ class Flight(db.Model, ChangeableMixin):
         return {
             "id": self.id,
             "name": self.name,
-            "departure_time": self.departure_time,
-            "arrival_time": self.arrival_time,
+          #  "status": self.status,
+          #  Здесь можно ночальную и конечную станцию и время получать запросом. Нужно подумать
             "stations": self.stations,
         }
+
