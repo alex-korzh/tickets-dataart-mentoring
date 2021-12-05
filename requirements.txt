@@ -5,3 +5,4 @@ alembic
 flask-jwt-extended
 pydantic
 psycopg2-binary
+Flask-Mail

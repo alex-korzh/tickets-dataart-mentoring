@@ -11,6 +11,7 @@ class User(db.Model, ChangeableMixin):
     password = db.Column(db.String)
     is_deleted = db.Column(db.Boolean)
     is_blocked = db.Column(db.Boolean)
+    is_active = db.Column(db.Boolean)
 
     def __repr__(self):
         return f"User {self.name}"
@@ -23,4 +24,5 @@ class User(db.Model, ChangeableMixin):
             "is_admin": self.is_admin,
             "is_deleted": self.is_deleted,
             "is_blocked": self.is_blocked,
+            "is_active": self.is_active,
         }

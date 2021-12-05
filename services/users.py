@@ -1,10 +1,10 @@
+import random
 from typing import List
-
 from werkzeug.security import generate_password_hash
-
 from dto import UserDto, SignupDto
 from models import User
 from main import db
+from utils import send_verification_email
 
 
 class UserService:
@@ -35,4 +35,8 @@ class UserService:
         new_user = User(email=data.email, password=generate_password_hash(data.password))
         db.session.add(new_user)
         db.session.commit()
+        code = random.randint(1000, 9999)
+        send_verification_email(data.email, str(code))
         return UserDto(**new_user.to_dict())
+
+
