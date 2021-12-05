@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator
 from models.main import StationTypeEnum
-from typing import Optional
+from typing import Optional, List
 
 
 class StationUpdateDto(BaseModel):
@@ -36,7 +36,10 @@ class LocalityDto(BaseModel):
 class FlightDto(BaseModel):
     id: int
     name: str
-    #stations: str
+
+
+class FlightListResponse(BaseModel):
+    flights: List[FlightDto]
 
 
 class LoginDto(BaseModel):

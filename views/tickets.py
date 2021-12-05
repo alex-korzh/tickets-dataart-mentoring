@@ -2,7 +2,6 @@ from flask import jsonify, request, Response
 from main import app
 from models import Ticket
 from http import HTTPStatus
-from dto import StationUpdateDto
 from services.tickets import TicketService
 
 

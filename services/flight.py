@@ -1,25 +1,26 @@
 from typing import List
-from dto import FlightDto
+from dto import FlightDto, FlightListResponse
 from models import Flight, flight_to_station
 
 
 class FlightService:
     @staticmethod
-    def get_all() -> List[FlightDto]:
+    def get_all() -> FlightListResponse:
         flights = Flight.query.all()
-        return [FlightDto(**s.to_dict()) for s in flights]
+        return FlightListResponse(flights=[FlightDto(**s.to_dict()) for s in flights])
 
     @staticmethod
     def get_one_by_id(id: int) -> FlightDto:
+        # todo подробный вид рейса должен быть подробнее ))
         rez_flight = Flight.query.get(id)
         return FlightDto(**rez_flight.to_dict())
 
     @staticmethod
-    def get_all_by_station(id: int) -> FlightDto:
+    def get_all_by_station(id: int) -> FlightListResponse:
         rez_flights = Flight.query.filter_by(station_id=id).all()
-        return [FlightDto(**s.to_dict()) for s in rez_flights]
+        return FlightListResponse(flights=[FlightDto(**s.to_dict()) for s in rez_flights])
 
     @staticmethod
-    def delete(id: int) -> FlightDto:
+    def delete(id: int) -> None:
         rez_flight = Flight.query.get(id)
         rez_flight.delete()

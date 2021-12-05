@@ -5,6 +5,7 @@ from main import app
 from models import Station
 from services.stations import StationService
 
+# todo переделать все множественные get по образцу flight
 
 @app.route('/stations', methods=['GET'])
 def get_stations():

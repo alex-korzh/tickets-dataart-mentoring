@@ -65,6 +65,8 @@ class Ticket(db.Model, ChangeableMixin):
     passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
 
+    # потенциальные статусы: создан, забронирован, отменён после бронирования, оплачен, возвращён после оплаты
+
     def __repr__(self):
         return f"Ticket {self.name}"
 
@@ -85,6 +87,8 @@ class Flight(db.Model, ChangeableMixin):
     departure_time = db.Column(db.DateTime, default=datetime.utcnow)
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     stations = db.relationship("Station", secondary=flight_to_station)
+    # TODO подумать как изменить структуру чтобы возвращать первую и последнюю станции рейса (добавить даты в промежуточную таблицу?)
+    # todo ввести количество посадочных мест чтобы не продать лишних билетов
 
     def __repr__(self):
         return f"Flight {self.name}"

@@ -10,6 +10,8 @@ from main import app
 from models import User
 from services.users import UserService
 
+# восстановление пароля, отправка подтверждения на email
+
 
 @app.route('/login/', methods=['POST'])
 def login():
@@ -48,8 +50,4 @@ def signup():
         data = SignupDto(**request.json)
     except (ValidationError, TypeError):
         return Response(status=HTTPStatus.BAD_REQUEST)
-    try:
-        new_user = UserService.create(data)
-    except Exception as e:
-        return Response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-    return new_user.json()
+    return UserService.create(data).json()
