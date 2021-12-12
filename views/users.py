@@ -17,6 +17,12 @@ def get_user_id(user_id):
     return users.json()
 
 
+@app.route('/users/filter', methods=['GET'])
+def filter_users(filter_by):
+    users = UserService.filter_users(filter_by)
+    return users.json()
+
+
 @app.route('/users/<int:user_id>', methods=['PUT'])
 def blocked_user(user_id):
     UserService.blocked_user(user_id)

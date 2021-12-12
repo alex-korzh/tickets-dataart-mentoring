@@ -83,3 +83,11 @@ class SignupDto(BaseModel):
             raise ValueError('passwords do not match')
 
 
+class BuyTicketDto(BaseModel):
+    departure_station_id: int
+    arrival_station_id: int
+    flight_id: int
+
+
+class TicketBuyResponse(BaseModel):
+    name: str

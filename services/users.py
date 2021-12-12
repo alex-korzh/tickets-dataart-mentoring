@@ -1,3 +1,4 @@
+import json
 import random
 from werkzeug.security import generate_password_hash
 from dto import UserDto, SignupDto, UsersListResponse
@@ -10,7 +11,7 @@ class UserService:
     @staticmethod
     def get_all() -> UsersListResponse:
         tickets = User.query.all()
-        return UsersListResponse(tickets=[UserDto(**s.to_dict()) for s in tickets])
+        return UsersListResponse(tickets=[UserDto(**s.to_dict()) for s in tickets]) # todo fix
 
     @staticmethod
     def get_one_by_id(id: int) -> UserDto:
@@ -24,7 +25,7 @@ class UserService:
         db.session.commit()
 
     @staticmethod
-    def blocked_user(id: int) -> None:
+    def blocked_user(id: int) -> None: # todo переименовать в глагол
         rez_user = User.query.get(id)
         rez_user.is_blocked = True
         db.session.commit()
@@ -38,4 +39,8 @@ class UserService:
         send_verification_email(data.email, str(code))
         return UserDto(**new_user.to_dict())
 
-
+    @staticmethod
+    def filter_users(filter_by: str) -> UsersListResponse:
+        filters = json.loads(filter_by)  # todo проверять filter_by на корректность
+        users = User.query.filter(**filters)
+        return UsersListResponse(users=[UserDto(**u.to_dict()) for u in users])

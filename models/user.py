@@ -39,6 +39,7 @@ class Profile(db.Model, ChangeableMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     full_name = db.Column(db.String)
     #TODO Погуглить ограничить количество символов серии и номера паспорта
+    # todo паспортные данные как одно json поле
     passport_page_2 = db.Column(db.Integer)
     passport_date_of_issue = db.Column(db.DateTime, default=datetime.utcnow)
     passport_is_issued_by = db.Column(db.String)

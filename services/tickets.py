@@ -1,4 +1,4 @@
-from dto import TicketDto, TicketListResponse
+from dto import TicketDto, TicketListResponse, TicketBuyResponse, BuyTicketDto
 from models import Ticket
 
 
@@ -18,3 +18,8 @@ class TicketService:
     def delete_by_id(id: int) -> None:
         rez_locality = Ticket.query.get(id)
         rez_locality.delete()
+
+    @classmethod
+    def buy(cls, data: BuyTicketDto) -> TicketBuyResponse:
+
+        pass

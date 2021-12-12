@@ -1,4 +1,6 @@
 from flask import request, Response
+
+from dto import BuyTicketDto
 from main import app
 from models import Ticket
 from http import HTTPStatus
@@ -28,3 +30,11 @@ def update_ticket(ticket_id):
 def delete_ticket(ticket_id):
     TicketService.delete_by_id(ticket_id)
     return Response(status=HTTPStatus.OK)
+
+
+@app.route('/tickets', methods=['POST'])
+def buy_ticket():
+    data = BuyTicketDto(**request.json)
+    res = TicketService.buy(data)
+    # todo отправлять email об успешной покупке с id билета
+    return res.json()
