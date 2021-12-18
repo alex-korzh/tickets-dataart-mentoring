@@ -26,6 +26,12 @@ class TicketStatusEnum(Enum):
     REFUND_AFTER_PAYMENT = auto()
 
 
+class SeatClassEnum(Enum):
+    FIRST = auto()
+    SECOND = auto()
+    THIRD = auto()
+
+
 class Locality(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -73,6 +79,8 @@ class Ticket(db.Model, ChangeableMixin):
     passenger_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
     passenger_data = db.Column(db.JSON)
+    seat_class = db.Column(db.Enum(SeatClassEnum))
+    price = db.Column(db.Integer)
 
     def __repr__(self):
         return f"Ticket {self.name}"
@@ -86,6 +94,14 @@ class Ticket(db.Model, ChangeableMixin):
         }
 
 
+class TicketSeatsByClass(db.Model, ChangeableMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
+    price = db.Column(db.Integer)
+    seats_number = db.Column(db.Integer)
+    seat_class = db.Column(db.Enum(SeatClassEnum))
+
+
 class Flight(db.Model, ChangeableMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -94,6 +110,8 @@ class Flight(db.Model, ChangeableMixin):
     arrival_time = db.Column(db.DateTime, default=datetime.utcnow)
     # todo подумать как изменить структуру чтобы возвращать первую и последнюю станции рейса (добавить даты в промежуточную таблицу?)
     # todo ввести количество посадочных мест чтобы не продать лишних билетов
+
+    seats_prices = db.relationship("TicketSeatsByClass")
 
     def __repr__(self):
         return f"Flight {self.name}"

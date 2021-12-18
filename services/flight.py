@@ -23,3 +23,5 @@ class FlightService:
     def delete(id: int) -> None:
         rez_flight = Flight.query.get(id)
         rez_flight.delete()
+
+# todo создание рейсов с ценой

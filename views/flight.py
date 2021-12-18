@@ -31,7 +31,7 @@ def get_all_by_station(station_id):
 def update_flight(flight_id):
     rez_flight = Flight.query.get(flight_id)
     update_dto = FlightDto(**request.json)
-    # TODO обновлять список станций
+    # TODO обновлять список станций, использовать FlightService
     rez_flight.update(name=update_dto.name)
     return Response(status=HTTPStatus.OK)
 
