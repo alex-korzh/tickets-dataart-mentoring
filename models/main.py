@@ -94,7 +94,8 @@ class Ticket(db.Model, ChangeableMixin):
         }
 
 
-class TicketSeatsByClass(db.Model, ChangeableMixin):
+class FlightSeatsByClass(db.Model, ChangeableMixin):
+    # todo учесть то что это цена за всю поездку, а пассажир едет только часть пути.
     id = db.Column(db.Integer, primary_key=True)
     flight_id = db.Column(db.Integer, db.ForeignKey("flight.id"))
     price = db.Column(db.Integer)

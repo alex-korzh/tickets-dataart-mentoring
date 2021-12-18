@@ -36,5 +36,4 @@ def delete_ticket(ticket_id):
 def buy_ticket():
     data = BuyTicketDto(**request.json)
     res = TicketService.buy(data)
-    # todo отправлять email об успешной покупке с id билета
     return res.json()

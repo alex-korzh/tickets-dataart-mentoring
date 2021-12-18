@@ -1,5 +1,5 @@
 from pydantic import BaseModel, validator
-from models.main import StationTypeEnum
+from models.main import StationTypeEnum, SeatClassEnum
 from typing import Optional, List
 
 
@@ -87,6 +87,8 @@ class BuyTicketDto(BaseModel):
     departure_station_id: int
     arrival_station_id: int
     flight_id: int
+    passenger_data: str
+    seat_class: SeatClassEnum
 
 
 class TicketBuyResponse(BaseModel):

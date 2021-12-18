@@ -1,5 +1,6 @@
 from dto import TicketDto, TicketListResponse, TicketBuyResponse, BuyTicketDto
-from models import Ticket
+from main import db
+from models import Ticket, TicketStatusEnum, FlightSeatsByClass
 
 
 # TODO попробуй закончить
@@ -19,7 +20,22 @@ class TicketService:
         rez_locality = Ticket.query.get(id)
         rez_locality.delete()
 
+    # todo заменить passenger_id на id пользователя
     @classmethod
     def buy(cls, data: BuyTicketDto) -> TicketBuyResponse:
-
-        pass
+        passenger_id = 1
+        prices = FlightSeatsByClass.query.filter_by(
+            flight_id=data.flight_id,
+            seat_class=data.seat_class
+        ).one()
+        # todo проверить, есть ли свободные места
+        ticket = Ticket(
+            status=TicketStatusEnum.CREATED,
+            passenger_id=passenger_id,
+            **data.dict(),
+        )
+        ticket.price = prices.price
+        # todo отправлять email об успешной покупке с id билета
+        ticket.status = TicketStatusEnum.BOOKED
+        db.session.add(ticket)
+        db.session.commit()
